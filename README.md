@@ -1,2 +1,2 @@
 # PHP-MVC-Practical-Project
-Soft
+SoftUni practical project for the course Introduction in web development.
