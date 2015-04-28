@@ -10,6 +10,8 @@ $controller = 'home';
 $method = 'index';
 $param = array();
 
+include_once 'controllers/HomeController.php';
+
 if (!empty($request)){
 	if (strpos($request, $requestHome) === 0){
 		$request = substr($request, strlen($requestHome));
@@ -22,10 +24,15 @@ if (!empty($request)){
 			if (isset($components[2])){
 				$param = $components[2];
 			}
+			
+			include_once 'controllers/' . ucfirst($controller) . 'Controller.php';
 		}
 	}
 }
 
-var_dump($controller);
-var_dump($method);
-var_dump($param);
+// var_dump($controller);
+// var_dump($method);
+// var_dump($param);
+
+$controllerClass = '\controllers\\' . ucfirst($controller) . 'Controller';
+$instance = new $controllerClass();
