@@ -10,10 +10,10 @@ abstract class BaseController {
     function __construct($controllerName, $actionName) {
         $this->controllerName = $controllerName;
         $this->actionName = $actionName;
+        $this->onInit();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->isPost = true;
         }
-        $this->onInit();
     }
 
     public function onInit() {
@@ -29,17 +29,19 @@ abstract class BaseController {
             if ($viewName == null) {
                 $viewName = $this->actionName;
             }
-            $viewFileName = 'views/' . $this->controllerName
-                . '/' . $viewName . '.php';
+			
+            $viewFileName = 'views/' . $this->controllerName . '/' . $viewName . '.php';
             if ($includeLayout) {
                 $headerFile = 'views/layouts/' . $this->layoutName . '/header.php';
                 include_once($headerFile);
             }
+			
             include_once($viewFileName);
             if ($includeLayout) {
                 $footerFile = 'views/layouts/' . $this->layoutName . '/footer.php';
                 include_once($footerFile);
             }
+			
             $this->isViewRendered = true;
         }
     }
@@ -54,10 +56,12 @@ abstract class BaseController {
         if ($actionName != null) {
             $url .= '/' . urlencode($actionName);
         }
+		
         if ($params != null) {
             $encodedParams = array_map($params, 'urlencode');
             $url .= implode('/', $encodedParams);
         }
+		
         $this->redirectToUrl($url);
     }
 
@@ -65,8 +69,8 @@ abstract class BaseController {
         if (!isset($_SESSION['messages'])) {
             $_SESSION['messages'] = array();
         };
-        array_push($_SESSION['messages'],
-            array('text' => $msg, 'type' => $type));
+		
+        array_push($_SESSION['messages'], array('text' => $msg, 'type' => $type));
     }
 
     function addInfoMessage($msg) {
