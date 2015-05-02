@@ -1,38 +1,49 @@
 <?php
 
-define('DX_ROOT_DIR', dirname(__FILE__) . '/');
-define('DX_ROOT_PATH', basename(dirname(__FILE__)) . '/');
+session_start();
 
-$request = $_SERVER['REQUEST_URI'];
-$requestHome = '/' . DX_ROOT_PATH;
+require_once('includes/config.php');
 
-$controller = 'home';
-$method = 'index';
-$param = array();
+$requestParts = explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-include_once 'controllers/HomeController.php';
-
-if (!empty($request)){
-	if (strpos($request, $requestHome) === 0){
-		$request = substr($request, strlen($requestHome));
-		
-		$components = explode('/', $request, 3);
-		
-		if (count($components) > 1){
-			list($controller, $method) = $components;
-			
-			if (isset($components[2])){
-				$param = $components[2];
-			}
-			
-			include_once 'controllers/' . ucfirst($controller) . 'Controller.php';
-		}
-	}
+$controllerName = DEFAULT_CONTROLLER;
+if (count($requestParts) >= 2 && $requestParts[1] != '') {
+    $controllerName = $requestParts[1];
 }
 
-// var_dump($controller);
-// var_dump($method);
-// var_dump($param);
+$action = DEFAULT_ACTION;
+if (count($requestParts) >= 3 && $requestParts[2] != '') {
+    $action = $requestParts[2];
+}
 
-$controllerClass = '\controllers\\' . ucfirst($controller) . 'Controller';
-$instance = new $controllerClass();
+$params = array_splice($requestParts, 3);
+
+$controllerClassName = ucfirst(strtolower($controllerName)) . 'Controller';
+$controllerFileName = "controllers/" . $controllerClassName . '.php';
+
+if (class_exists($controllerClassName)) {
+    $controller = new $controllerClassName($controllerName, $action);
+} 
+else {
+    die("Cannot find controller '$controllerName' in class '$controllerFileName'");
+}
+
+if (method_exists($controller, $action)) {
+    call_user_func_array(array($controller, $action), $params);
+    $controller->renderView();
+} 
+else {
+    die("Cannot find action '$action' in controller '$controllerClassName'");
+}
+
+$controller->renderView();
+
+function __autoload($class_name) {
+    if (file_exists("controllers/$class_name.php")) {
+        include "controllers/$class_name.php";
+    }
+	
+    if (file_exists("models/$class_name.php")) {
+        include "models/$class_name.php";
+    }
+}
