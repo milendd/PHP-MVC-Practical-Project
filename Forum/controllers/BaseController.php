@@ -10,10 +10,10 @@ abstract class BaseController {
     function __construct($controllerName, $actionName) {
         $this->controllerName = $controllerName;
         $this->actionName = $actionName;
-        $this->onInit();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->isPost = true;
         }
+        $this->onInit();
     }
 
     public function onInit() {
