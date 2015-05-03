@@ -10,6 +10,7 @@
             <td><?= $category['id'] ?></td>
             <td><?= htmlspecialchars($category['title']) ?></td>
             <td><a href="/categories/delete/<?=$category['id']?> ">[Delete]</a></td>
+            <td><a href="/categories/edit/<?=$category['id']?> ">[Edit]</a></td>
         </tr>
     <?php endforeach ?>
 	<a href="categories/create">Create new category</a>

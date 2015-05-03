@@ -24,4 +24,34 @@ class CategoriesController extends BaseController {
             }
         }
 	}
+	
+	public function edit($id) {
+        if ($this->isPost()) {
+            $title = $_POST['title'];
+            if ($this->categoriesModel->edit($id, $title)) {
+                $this->addInfoMessage("category edited.");
+                $this->redirect("categories");
+            } 
+			else {
+                $this->addErrorMessage("Cannot edit category.");
+            }
+        }
+
+        // Display edit category form
+        $this->category = $this->categoriesModel->find($id);
+        if (!$this->category) {
+            $this->addErrorMessage("Invalid category.");
+            $this->redirect("categories");
+        }
+    }
+
+    public function delete($id) {
+        if ($this->categoriesModel->delete($id)) {
+            $this->addInfoMessage("category deleted.");
+        } 
+		else {
+            $this->addErrorMessage("Cannot delete category #" . htmlspecialchars($id) . '.');
+        }
+        $this->redirect("categories");
+    }
 }
