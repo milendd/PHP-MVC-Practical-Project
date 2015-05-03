@@ -1,15 +1,11 @@
 <?php
 
 class AccountModel extends BaseModel {
-	public function login(){
+	public function login($username, $password){
 		
 	}
 	
-	public function register(){
-		
-	}
-	
-	public function logout(){
+	public function register($username, $password, $email){
 		
 	}
 }
