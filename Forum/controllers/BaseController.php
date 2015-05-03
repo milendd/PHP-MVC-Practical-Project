@@ -5,14 +5,10 @@ abstract class BaseController {
     protected $actionName;
     protected $layoutName = DEFAULT_LAYOUT;
     protected $isViewRendered = false;
-    protected $isPost = false;
 
     function __construct($controllerName, $actionName) {
         $this->controllerName = $controllerName;
         $this->actionName = $actionName;
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->isPost = true;
-        }
         $this->onInit();
     }
 
@@ -63,6 +59,10 @@ abstract class BaseController {
         }
 		
         $this->redirectToUrl($url);
+    }
+	
+	protected function isPost() {
+        return $_SERVER['REQUEST_METHOD'] == 'POST';
     }
 
     function addMessage($msg, $type) {
