@@ -5,11 +5,16 @@ abstract class BaseController {
     protected $actionName;
     protected $layoutName = DEFAULT_LAYOUT;
     protected $isViewRendered = false;
+	protected $isLoggedIn = false;
 
     function __construct($controllerName, $actionName) {
         $this->controllerName = $controllerName;
         $this->actionName = $actionName;
         $this->onInit();
+		
+		if (isset($_SESSION['username'])){
+			$this->isLoggedIn = true;
+		}
     }
 
     public function onInit() {

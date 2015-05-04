@@ -16,5 +16,14 @@
             <li><a href="/categories">Categories</a></li>
         </ul>
     </header>
+	<?php if ($this->isLoggedIn) :?>
+	<div id="user-settings">
+		<p>Hello <?php echo $_SESSION['username']; ?></p>
+		<form action="/account/logout">
+			<input type="submit" value="Logout"/>
+		</form>
+	</div>
+	
+	<?php endif;?>
 
     <?php include('messages.php'); ?>
