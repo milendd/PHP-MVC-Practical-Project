@@ -11,4 +11,12 @@ class QuestionsController extends BaseController {
     public function index() {
         $this->questions = $this->questionsModel->getAll();
     }
+	
+	public function view($id) {
+		$this->question = $this->questionsModel->find($id);
+		if (!$this->question){
+			$this->addErrorMessage("No such question!");
+			$this->redirect("home");
+		}
+	}
 }

@@ -36,10 +36,6 @@ li.error{
 	padding: 0 5px;
 }
 
-#user-settings, header a {
-	vertical-align: middle;
-}
-
 #user-settings p, #user-settings form{
 	display: inline-block;
 	margin-left: 5px;
@@ -47,4 +43,8 @@ li.error{
 
 #messages {
 	text-align: center;
+}
+
+#question {
+	border: 2px solid black;
 }
