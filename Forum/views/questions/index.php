@@ -1,5 +1,6 @@
 <h1><?= htmlspecialchars($this->title) ?></h1>
 
+<a href="/questions/add">Add new question</a>
 <table>
     <tr>
         <th>ID</th>

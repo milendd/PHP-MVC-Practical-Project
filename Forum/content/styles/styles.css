@@ -48,3 +48,12 @@ li.error{
 #question {
 	border: 2px solid black;
 }
+
+#addQuestionBox {
+	border: 1px solid black;
+}
+
+#addQuestionBox *{
+	display: block;
+	margin: 0 0 2px 5px;
+}

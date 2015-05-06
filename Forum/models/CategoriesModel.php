@@ -2,7 +2,7 @@
 
 class CategoriesModel extends BaseModel {
     public function getAll() {
-        $statement = self::$db->query("SELECT * FROM categories");
+        $statement = self::$db->query("SELECT * FROM categories ORDER BY id");
         return $statement->fetch_all(MYSQLI_ASSOC);
     }
 
