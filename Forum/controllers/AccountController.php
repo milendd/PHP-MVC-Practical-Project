@@ -14,7 +14,7 @@ class AccountController extends BaseController {
 			$email = $_POST['email'];
 			
 			if ($this->accountModel->register($username, $password, $email)){
-				$_SESSION['username'] = $username;
+				$_SESSION['user'] = $username;
 				$this->addInfoMessage("registration successfull");
                 $this->redirect("home");
 			}
@@ -30,7 +30,7 @@ class AccountController extends BaseController {
 			$password = $_POST['password'];
 			
 			if ($this->accountModel->login($username, $password)){
-				$_SESSION['username'] = $username;
+				$_SESSION['user'] = $username;
 				$this->addInfoMessage("login successfull");
                 $this->redirect("home");
 			}
@@ -41,7 +41,8 @@ class AccountController extends BaseController {
 	}
 	
 	public function logout() {
-		unset($_SESSION['username']);
+		unset($_SESSION['user']);
+		$this->isLoggedIn = false;
 		$this->addInfoMessage("logout successfull");
 		$this->redirect("home");
 	}

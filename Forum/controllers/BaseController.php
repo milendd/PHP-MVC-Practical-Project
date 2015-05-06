@@ -12,7 +12,7 @@ abstract class BaseController {
         $this->actionName = $actionName;
         $this->onInit();
 		
-		if (isset($_SESSION['username'])){
+		if (isset($_SESSION['user'])){
 			$this->isLoggedIn = true;
 		}
     }
