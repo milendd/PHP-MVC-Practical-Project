@@ -1,3 +1,50 @@
 body {
-    background: green;
+    background: #88dad3;
+}
+
+header, footer, nav{
+	display: block;
+	text-align: center;
+}
+
+main {
+	display: inline-block;
+	margin-left: 15px;
+}
+
+ul li {
+	list-style-type: none;
+	display: inline-block;
+	padding: 5px 10px;
+}
+
+nav ul li {
+	border: 2px solid black;
+}
+
+li.info{
+	background-color: green;
+}
+
+li.error{
+	background-color: red;
+}
+
+#user-settings {
+	display: inline-block;
+	border: 2px solid black;
+	padding: 0 5px;
+}
+
+#user-settings, header a {
+	vertical-align: middle;
+}
+
+#user-settings p, #user-settings form{
+	display: inline-block;
+	margin-left: 5px;
+}
+
+#messages {
+	text-align: center;
 }

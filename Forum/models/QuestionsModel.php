@@ -2,7 +2,11 @@
 
 class QuestionsModel extends BaseModel {
     public function getAll() {
-        $statement = self::$db->query("SELECT * FROM questions");
+        $statement = self::$db->query(
+		"SELECT q.id, q.title, q.description, c.title as category, u.username
+		FROM questions q 
+		JOIN categories c ON q.category_id = c.id
+		JOIN users u ON q.user_id = u.id");
         return $statement->fetch_all(MYSQLI_ASSOC);
     }
 

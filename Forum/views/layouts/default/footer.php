@@ -1,6 +1,7 @@
-<footer>
-    (c) Forum MVC Framework, 2015
-</footer>
+	</main>
+	<footer>
+		<h2>&copy; Forum MVC Framework, 2015</h2>
+	</footer>
 </body>
 
 </html>

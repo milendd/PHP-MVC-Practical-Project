@@ -15,11 +15,11 @@ class AccountController extends BaseController {
 			
 			if ($this->accountModel->register($username, $password, $email)){
 				$_SESSION['user'] = $username;
-				$this->addInfoMessage("registration successfull");
+				$this->addInfoMessage("Registration successfull!");
                 $this->redirect("home");
 			}
 			else{
-				$this->addErrorMessage("register failed. The username length should be greater than 2");
+				$this->addErrorMessage("Register failed! The username length should be greater than 2, or username is already taken");
 			}
 		}
 	}
@@ -31,11 +31,11 @@ class AccountController extends BaseController {
 			
 			if ($this->accountModel->login($username, $password)){
 				$_SESSION['user'] = $username;
-				$this->addInfoMessage("login successfull");
+				$this->addInfoMessage("Login successfull!");
                 $this->redirect("home");
 			}
 			else{
-				$this->addErrorMessage("login failed.");
+				$this->addErrorMessage("Login failed!");
 			}
 		}
 	}
@@ -43,7 +43,7 @@ class AccountController extends BaseController {
 	public function logout() {
 		unset($_SESSION['user']);
 		$this->isLoggedIn = false;
-		$this->addInfoMessage("logout successfull");
+		$this->addInfoMessage("Logout successfull!");
 		$this->redirect("home");
 	}
 }
