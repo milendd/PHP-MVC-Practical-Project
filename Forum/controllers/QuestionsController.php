@@ -25,6 +25,24 @@ class QuestionsController extends BaseController {
 	public function add() {
 		$this->categories = $this->categoriesModel->getAll();
 		
-		//if is logged in smth... if post....
+		if (!$this->isLoggedIn){
+			$this->addErrorMessage("You cannot write questions if you are not logged in.");
+			$this->redirect("account", "login");
+		}
+		
+		if ($this->isPost()){
+			$title = $_POST['title'];
+			$description = $_POST['description'];
+			$category = $_POST['category'];
+			$tags = $_POST['tags'];
+			
+			if ($this->questionsModel->add($title, $description, $category, $tags)){
+				$this->addInfoMessage("Question added!");
+				$this->redirect('questions');
+			}
+			else {
+				$this->addErrorMessage("Could not create question. All the fields should be non empty!");
+			}
+		}
 	}
 }

@@ -7,7 +7,7 @@
 		<textarea name="description"></textarea>
 		
 		<span>Category:</span>
-		<select>
+		<select name="category">
 			<?php foreach ($this->categories as $category):?>
 			<option><?=htmlspecialchars($category['title'])?></option>
 			<?php endforeach;?>
