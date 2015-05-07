@@ -17,7 +17,11 @@
 				</a>
 			</td>
             <td><?= htmlspecialchars($question['category']) ?></td>
-            <td><?= htmlspecialchars($question['username']) ?></td>
+            <td>
+				<a href="/users/view/<?= $question['username']?>">
+					<?= htmlspecialchars($question['username'])?>
+				</a>
+			</td>
         </tr>
     <?php endforeach ?>
 </table>

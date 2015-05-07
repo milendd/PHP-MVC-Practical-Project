@@ -24,6 +24,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="/categories">Categories</a></li>
             <li><a href="/questions">Questions</a></li>
+            <li><a href="/users">Users</a></li>
         </ul>
 	</nav>
 	<main>
