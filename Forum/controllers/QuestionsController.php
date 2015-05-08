@@ -18,8 +18,10 @@ class QuestionsController extends BaseController {
 		$this->question = $this->questionsModel->find($id);
 		if (!$this->question){
 			$this->addErrorMessage("No such question!");
-			$this->redirect("home");
+			$this->redirect("questions");
 		}
+		
+		$this->answers = $this->questionsModel->getAnswers($id);
 	}
 	
 	public function add() {

@@ -47,6 +47,19 @@ class QuestionsModel extends BaseModel {
 		
 		return true;
     }
+	
+	public function getAnswers($id) {
+		$statement = self::$db->prepare(
+			"SELECT a.text, u.username 
+			FROM answers a 
+			JOIN users u ON a.user_id = u.id 
+			WHERE a.question_id = ?");
+        $statement->bind_param("i", intval($id));
+        $statement->execute();
+        $result = $statement->get_result();
+		
+		return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function delete($id) {
 		//only admin!
