@@ -48,6 +48,19 @@ class QuestionsModel extends BaseModel {
 		return true;
     }
 	
+    public function delete($id) {
+		//only admin!
+        $statement = self::$db->prepare(
+            "DELETE FROM categories WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
+    }
+	
+	public function addAnswer($text){
+		//TODO
+	}
+	
 	public function getAnswers($id) {
 		$statement = self::$db->prepare(
 			"SELECT a.text, u.username 
@@ -59,15 +72,6 @@ class QuestionsModel extends BaseModel {
         $result = $statement->get_result();
 		
 		return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    public function delete($id) {
-		//only admin!
-        $statement = self::$db->prepare(
-            "DELETE FROM categories WHERE id = ?");
-        $statement->bind_param("i", $id);
-        $statement->execute();
-        return $statement->affected_rows > 0;
     }
 	
 	private function getCategoryStatementFromName($categoryName){

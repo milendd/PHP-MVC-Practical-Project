@@ -47,4 +47,10 @@ class QuestionsController extends BaseController {
 			}
 		}
 	}
+	
+	public function addAnswer(){
+		$this->addInfoMessage("successfull added answer");
+		$this->redirect("questions");
+		// TODO
+	}
 }
