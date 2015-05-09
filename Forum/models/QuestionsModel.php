@@ -51,11 +51,11 @@ class QuestionsModel extends BaseModel {
     public function delete($id) {
 		//only admin!
 		
-        // $statement = self::$db->prepare(
-        //     "DELETE FROM categories WHERE id = ?");
-        // $statement->bind_param("i", $id);
-        // $statement->execute();
-        // return $statement->affected_rows > 0;
+        $statement = self::$db->prepare(
+            "DELETE FROM categories WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
     }
 	
 	public function addAnswer($text, $questionId){
@@ -83,7 +83,8 @@ class QuestionsModel extends BaseModel {
 			"SELECT a.text, u.username 
 			FROM answers a 
 			JOIN users u ON a.user_id = u.id 
-			WHERE a.question_id = ?");
+			WHERE a.question_id = ?
+			ORDER BY a.id");
         $statement->bind_param("i", intval($id));
         $statement->execute();
         $result = $statement->get_result();

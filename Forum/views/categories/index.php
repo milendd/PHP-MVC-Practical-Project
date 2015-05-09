@@ -8,7 +8,11 @@
     <?php foreach ($this->categories as $category) : ?>
         <tr>
             <td><?= $category['id'] ?></td>
-            <td><?= htmlspecialchars($category['title']) ?></td>
+            <td>
+				<a href="/categories/view/<?=$category['title']?> ">
+					<?= htmlspecialchars($category['title'])?>
+				</a>
+			</td>
             <td><a href="/categories/delete/<?=$category['id']?> ">[Delete]</a></td>
             <td><a href="/categories/edit/<?=$category['id']?> ">[Edit]</a></td>
         </tr>

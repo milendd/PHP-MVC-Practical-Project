@@ -16,7 +16,11 @@
 					<?= htmlspecialchars($question['title']) ?>
 				</a>
 			</td>
-            <td><?= htmlspecialchars($question['category']) ?></td>
+			<td>
+				<a href="/categories/view/<?= $question['category']?>">
+					<?= htmlspecialchars($question['category'])?>
+				</a>
+			</td>
             <td>
 				<a href="/users/view/<?= $question['username']?>">
 					<?= htmlspecialchars($question['username'])?>

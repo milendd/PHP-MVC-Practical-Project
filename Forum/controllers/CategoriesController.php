@@ -25,6 +25,11 @@ class CategoriesController extends BaseController {
         }
 	}
 	
+	public function view($categoryTitle) {
+		$this->title = $categoryTitle;
+		$this->questions = $this->categoriesModel->getQuestions($categoryTitle);
+	}
+	
 	public function edit($id) {
         if ($this->isPost()) {
             $title = $_POST['title'];

@@ -43,4 +43,18 @@ class CategoriesModel extends BaseModel {
         $statement->execute();
         return $statement->affected_rows > 0;
     }
+	
+	public function getQuestions($categoryTitle){
+		$statement = self::$db->prepare(
+			"SELECT q.id, q.title, u.username
+			FROM categories c
+			JOIN questions q ON c.id = q.category_id
+			JOIN users u ON u.id = q.user_id
+			WHERE c.title = ?");
+        $statement->bind_param("s", $categoryTitle);
+        $statement->execute();
+		$result = $statement->get_result();
+		
+        return $result->fetch_all(MYSQLI_ASSOC);
+	}
 }
