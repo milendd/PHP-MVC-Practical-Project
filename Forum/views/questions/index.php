@@ -6,6 +6,7 @@
         <th>ID</th>
         <th>Title</th>
         <th>Category</th>
+        <th>Visits</th>
         <th>Username</th>
     </tr>
     <?php foreach ($this->questions as $question) : ?>
@@ -21,6 +22,7 @@
 					<?= htmlspecialchars($question['categoryTitle'])?>
 				</a>
 			</td>
+			<td><?= htmlspecialchars($question['counter'])?></td>
             <td>
 				<a href="/users/view/<?= $question['username']?>">
 					<?= htmlspecialchars($question['username'])?>

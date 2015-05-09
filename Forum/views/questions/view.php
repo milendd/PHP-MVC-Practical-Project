@@ -6,6 +6,8 @@
 			<?= htmlspecialchars($this->question['username'])?>
 		</a>
 	</p>
+	<p>Visits: <?= htmlspecialchars($this->question['counter'])?>
+	</p>
 	<div>
 		Tags:
 		<?php foreach($this->tags as $tag):?>

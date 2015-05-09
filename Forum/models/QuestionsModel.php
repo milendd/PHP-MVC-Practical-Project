@@ -3,7 +3,7 @@
 class QuestionsModel extends BaseModel {
     public function getAll() {
         $statement = self::$db->query(
-			"SELECT q.id, q.title, c.title as categoryTitle, c.id as categoryId, u.username
+			"SELECT q.id, q.title, q.counter, c.title as categoryTitle, c.id as categoryId, u.username
 			FROM questions q 
 			JOIN categories c ON q.category_id = c.id
 			JOIN users u ON q.user_id = u.id
@@ -13,7 +13,7 @@ class QuestionsModel extends BaseModel {
 
     public function find($id) {
 		$statement = self::$db->prepare(
-			"SELECT q.title, q.description, u.username
+			"SELECT q.title, q.description, q.counter, u.username
 			FROM questions q
 			JOIN users u ON q.user_id = u.id
 			WHERE q.id = ?");
@@ -21,6 +21,26 @@ class QuestionsModel extends BaseModel {
         $statement->execute();
         return $statement->get_result()->fetch_assoc();
     }
+	
+	function updateCounter($id) {
+		$statement = self::$db->prepare(
+			"SELECT counter
+			FROM questions
+			WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $counter = $statement->get_result()->fetch_assoc()['counter'];
+		$counter++;
+		
+		$statement = self::$db->prepare(
+			"UPDATE questions 
+			SET counter = ? 
+			WHERE id = ?");
+        $statement->bind_param("ii", $counter, $id);
+        $statement->execute();
+		
+        return $statement->errno == 0;
+	}
 	
 	public function add($title, $description, $category, $tags) {
 		if ($title == "" || $description == "" || $category == "" || $tags == ""){

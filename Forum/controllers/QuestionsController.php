@@ -27,6 +27,7 @@ class QuestionsController extends BaseController {
 		$this->currentId = $id;
 		$this->answers = $this->questionsModel->getAnswers($id);
 		$this->tags = $this->tagsModel->getTags($id);
+		$this->questionsModel->updateCounter($id);
 	}
 	
 	public function add() {
