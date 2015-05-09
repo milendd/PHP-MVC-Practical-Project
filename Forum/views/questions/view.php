@@ -1,13 +1,14 @@
-<div id="questionBox">
+<div class="question">
 	<h2><?= htmlspecialchars($this->question['title']) ?></h2>
-	<p><?= htmlspecialchars($this->question['description']) ?></p>
-	<p>Author: 
+	<span><?= htmlspecialchars($this->question['description']) ?></span>
+	<br><br>
+	<span>Author: 
 		<a href="/users/view/<?= $this->question['username']?>">
 			<?= htmlspecialchars($this->question['username'])?>
 		</a>
-	</p>
-	<p>Visits: <?= htmlspecialchars($this->question['counter'])?>
-	</p>
+	</span><br>
+	<span>Visits: <?= htmlspecialchars($this->question['counter'])?></span>
+	<br>
 	<div>
 		Tags:
 		<?php foreach($this->tags as $tag):?>
@@ -28,24 +29,21 @@
 	<div id="answerBox" style="display:none;">
 		<h2>Add answer to the question</h2>
 		<form method="POST" action="/questions/addAnswer/<?= $this->getCurrentId()?>">
-			<textarea name="text"></textarea>
+			<textarea name="text"></textarea><br>
 			<input type="submit" value="Submit answer"/>
 		</form>
 	</div>
 <?php endif;?>
-<table>
-	<?php if ($this->answers):
-		foreach ($this->answers as $answer) : ?>
-		<tr>
-			<td><?= htmlspecialchars($answer['text']) ?></td>
-			<td>
-				<a href="/users/view/<?= $answer['username']?>">
-					<?= htmlspecialchars($answer['username'])?>
-				</a>
-			</td>
-		</tr>
-	<?php endforeach; else: ?>
-		<div>No answers</div>
-	<?php endif;?>
-</table>
-</div>
+<br>
+<?php if ($this->answers):
+	foreach ($this->answers as $answer) : ?>
+	<div class="question">
+		<p><?= htmlspecialchars($answer['text']) ?></p>
+		<span>Author: </span>
+		<a href="/users/view/<?= $answer['username']?>">
+			<?= htmlspecialchars($answer['username'])?>
+		</a>
+	</div>
+<?php endforeach; else: ?>
+	<div>No answers</div>
+<?php endif;?>

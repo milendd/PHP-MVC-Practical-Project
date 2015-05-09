@@ -2,17 +2,17 @@
 
 <table>
     <?php foreach ($this->questions as $question) : ?>
-        <tr>
-			<td>
-				<a href="/questions/view/<?= $question['question_id']?>">
-					<?= htmlspecialchars($question['title'])?>
-				</a>
-			</td>
-			<td>
-				<a href="/users/view/<?= $question['username']?>">
-					<?= htmlspecialchars($question['username'])?>
-				</a>
-			</td>
-        </tr>
-    <?php endforeach ?>
+		<div class="question">
+		<h2>
+			<a href="/questions/view/<?=$question['question_id']?>">
+				<?= htmlspecialchars($question['title']) ?>
+			</a>
+		</h2>
+		<span>Author: </span>
+		<a href="/users/view/<?= $question['username']?>">
+			<?= htmlspecialchars($question['username'])?>
+		</a>
+		</div>
+	<?php endforeach ?>
 </table>
+

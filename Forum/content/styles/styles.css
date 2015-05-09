@@ -8,8 +8,9 @@ header, footer, nav{
 }
 
 main {
-	display: inline-block;
-	margin-left: 15px;
+	display: block;
+	margin: 0 auto;
+	width: 650px;
 }
 
 ul li {
@@ -20,10 +21,40 @@ ul li {
 
 nav ul li {
 	border: 2px solid black;
+	border-radius: 5px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: underline;
 }
 
 span {
 	margin-right: 7px;
+}
+
+input {
+	margin: 3px;
+}
+
+textarea {
+	width:250px;
+	height:100px;
+}
+
+form{
+	padding: 5px;
+}
+
+button {
+	margin-top: 5px;
+}
+
+p{
+	margin: 5px 0;
 }
 
 .info{
@@ -34,9 +65,22 @@ span {
 	background-color: red;
 }
 
+.center{
+	text-align:center;
+}
+
+.question{
+	border: 2px solid black;
+	border-radius: 10px;
+	margin: 10px 0;
+	padding-bottom: 10px;
+	padding-left: 10px;
+}
+
 #user-settings {
 	display: inline-block;
 	border: 2px solid black;
+	border-radius: 7px;
 	padding: 0 5px;
 }
 
@@ -47,14 +91,6 @@ span {
 
 #messages {
 	text-align: center;
-}
-
-#questionBox {
-	border: 2px solid black;
-}
-
-#addQuestionBox {
-	border: 1px solid black;
 }
 
 #addQuestionBox *{
