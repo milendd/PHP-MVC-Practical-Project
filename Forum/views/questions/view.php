@@ -6,7 +6,16 @@
 			<?= htmlspecialchars($this->question['username'])?>
 		</a>
 	</p>
-	
+	<div>
+		Tags:
+		<?php foreach($this->tags as $tag):?>
+			<span>
+				<a href="/tags/view/<?= $tag['tag_id']?>">
+					<?= htmlspecialchars($tag['name'])?>
+				</a>
+			</span>
+		<?php endforeach;?>
+	</div>
 	<?php if ($this->isLoggedIn): ?>
 	<button id="showAnswerBox">Add answer</button>
 	<?php else: ?>

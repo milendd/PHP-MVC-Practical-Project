@@ -22,6 +22,10 @@ nav ul li {
 	border: 2px solid black;
 }
 
+span {
+	margin-right: 7px;
+}
+
 .info{
 	background-color: green;
 }

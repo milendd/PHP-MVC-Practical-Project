@@ -3,12 +3,14 @@
 class QuestionsController extends BaseController {
 	private $questionsModel;
 	private $categoriesModel;
+	private $tagsModel;
 	private $currentId;
 
     public function onInit() {
         $this->title = 'Questions';
         $this->questionsModel = new QuestionsModel();
         $this->categoriesModel = new CategoriesModel();
+        $this->tagsModel = new TagsModel();
     }
 
     public function index() {
@@ -24,6 +26,7 @@ class QuestionsController extends BaseController {
 		
 		$this->currentId = $id;
 		$this->answers = $this->questionsModel->getAnswers($id);
+		$this->tags = $this->tagsModel->getTags($id);
 	}
 	
 	public function add() {
