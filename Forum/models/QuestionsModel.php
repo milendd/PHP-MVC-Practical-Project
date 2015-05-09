@@ -21,6 +21,16 @@ class QuestionsModel extends BaseModel {
         $statement->execute();
         return $statement->get_result()->fetch_assoc();
     }
+		
+	public function getTagId($tagName) {
+		$statement = self::$db->prepare(
+			"SELECT id
+			FROM tags
+			WHERE name = ?");
+        $statement->bind_param("s", $tagName);
+        $statement->execute();
+        return $statement->get_result()->fetch_assoc()['id'];
+	}
 	
 	function updateCounter($id) {
 		$statement = self::$db->prepare(
@@ -60,12 +70,20 @@ class QuestionsModel extends BaseModel {
 		$userId = $userStatement['id'];
 		
 		$statement = self::$db->prepare(
-			"INSERT INTO questions (id, title, description, category_id, user_id)
-			VALUES (NULL, ?, ?, ?, ?)");
+			"INSERT INTO questions (title, description, category_id, user_id)
+			VALUES (?, ?, ?, ?)");
         $statement->bind_param("ssii", $title, $description, $categoryId, $userId);
         $statement->execute();
 		
-		return $statement->affected_rows > 0;
+		if ($statement->affected_rows == 0){
+			return false;
+		}
+		
+		$questionId = $statement->insert_id;
+		$tags = preg_split("/[\s,]+/", $tags);
+		$this->addTagsToQuestion($tags, $questionId);
+		
+		return true;
     }
 	
     public function delete($id) {
@@ -111,6 +129,20 @@ class QuestionsModel extends BaseModel {
 		
 		return $result->fetch_all(MYSQLI_ASSOC);
     }
+	
+	public function addTagsToQuestion($tags, $questionId) {
+		foreach ($tags as $tag){
+			$statement = self::$db->prepare("INSERT INTO tags (name) VALUES (?)");
+			$statement->bind_param("s", $tag);
+			$statement->execute();
+			
+			$tagId = $this->getTagId($tag);
+			
+			$statement = self::$db->prepare("INSERT INTO tags_questions (question_id, tag_id) VALUES (?, ?)");
+			$statement->bind_param("ii", $questionId, $tagId);
+			$statement->execute();
+		}
+	}
 	
 	private function getCategoryStatementFromName($categoryName){
 		$categoryStatement = self::$db->prepare("SELECT id FROM categories WHERE title = ?");

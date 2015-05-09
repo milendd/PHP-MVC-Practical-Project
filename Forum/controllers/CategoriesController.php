@@ -22,7 +22,7 @@ class CategoriesController extends BaseController {
                 $this->redirect("categories");
             } 
 			else {
-                $this->addErrorMessage("Cannot create category. It should be non-empty");
+                $this->addErrorMessage("Could not create category! It should be non-empty or already exists!");
             }
         }
 	}
@@ -43,18 +43,18 @@ class CategoriesController extends BaseController {
 	
 		$this->category = $this->categoriesModel->find($id);
         if (!$this->category) {
-            $this->addErrorMessage("Invalid category.");
+            $this->addErrorMessage("Invalid category!");
             $this->redirect("categories");
         }
 	
         if ($this->isPost()) {
             $title = $_POST['title'];
             if ($this->categoriesModel->edit($id, $title)) {
-                $this->addInfoMessage("category edited.");
+                $this->addInfoMessage("Category edited.");
                 $this->redirect("categories");
             } 
 			else {
-                $this->addErrorMessage("Cannot edit category.");
+                $this->addErrorMessage("Could not edit category!");
             }
         }
     }
@@ -63,10 +63,10 @@ class CategoriesController extends BaseController {
 		$this->authorize('You are not allowed to delete category! Login first!');
 	
         if ($this->categoriesModel->delete($id)) {
-            $this->addInfoMessage("category deleted.");
+            $this->addInfoMessage("Category deleted.");
         } 
 		else {
-            $this->addErrorMessage("Cannot delete category #" . htmlspecialchars($id) . '.');
+            $this->addErrorMessage("Could not delete category #" . htmlspecialchars($id) . '.');
         }
         $this->redirect("categories");
     }
