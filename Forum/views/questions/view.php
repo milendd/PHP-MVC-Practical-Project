@@ -6,15 +6,22 @@
 			<?= htmlspecialchars($this->question['username'])?>
 		</a>
 	</p>
-	<button id="addAnswerButton">Add answer</button>
+	
+	<?php if ($this->isLoggedIn): ?>
+	<button id="showAnswerBox">Add answer</button>
+	<?php else: ?>
+		<div class="error">You cannot write answers if you are not logged in</div>
+	<?php endif;?>
 </div>
-<div id="addAnswerBox" style="display:block">
-	<h2>Add answer to the question</h2>
-	<form method="POST" action="/questions/addAnswer">
-		<textarea name="text"></textarea>
-		<input type="submit" value="Submit answer"/>
-	</form>
-</div>
+<?php if ($this->isLoggedIn): ?>
+	<div id="answerBox" style="display:none;">
+		<h2>Add answer to the question</h2>
+		<form method="POST" action="/questions/addAnswer/<?= $this->getCurrentId()?>">
+			<textarea name="text"></textarea>
+			<input type="submit" value="Submit answer"/>
+		</form>
+	</div>
+<?php endif;?>
 <table>
 	<?php if ($this->answers):
 		foreach ($this->answers as $answer) : ?>

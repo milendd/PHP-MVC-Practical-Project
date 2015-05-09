@@ -22,11 +22,11 @@ nav ul li {
 	border: 2px solid black;
 }
 
-li.info{
+.info{
 	background-color: green;
 }
 
-li.error{
+.error{
 	background-color: red;
 }
 

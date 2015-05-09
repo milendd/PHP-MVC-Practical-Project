@@ -3,6 +3,7 @@
 class QuestionsController extends BaseController {
 	private $questionsModel;
 	private $categoriesModel;
+	private $currentId;
 
     public function onInit() {
         $this->title = 'Questions';
@@ -21,6 +22,7 @@ class QuestionsController extends BaseController {
 			$this->redirect("questions");
 		}
 		
+		$this->currentId = $id;
 		$this->answers = $this->questionsModel->getAnswers($id);
 	}
 	
@@ -48,9 +50,32 @@ class QuestionsController extends BaseController {
 		}
 	}
 	
-	public function addAnswer(){
-		$this->addInfoMessage("successfull added answer");
-		$this->redirect("questions");
-		// TODO
+	public function addAnswer($questionId){
+		if (!$this->isLoggedIn){
+			$this->addErrorMessage("You cannot write answers if you are not logged in.");
+			$this->redirect("account", "login");
+		}
+		
+		if ($this->isPost()){
+			$text = $_POST['text'];
+			$questionId = intval($questionId);
+			
+			if ($this->questionsModel->addAnswer($text, $questionId)){
+				$this->addInfoMessage("Answer added!");
+			}
+			else {
+				$this->addErrorMessage("Could not create answer! The text should be more than 10 symbols!");
+			}
+			
+			$this->redirectToUrl('/questions/view/' . $questionId);
+		}
+		else {
+			$this->addErrorMessage("You are not allowed to add answers this way!");
+			$this->redirect('questions');
+		}
+	}
+	
+	public function getCurrentId(){
+		return $this->currentId;
 	}
 }

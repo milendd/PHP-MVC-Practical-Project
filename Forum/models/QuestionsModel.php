@@ -45,20 +45,37 @@ class QuestionsModel extends BaseModel {
         $statement->bind_param("ssii", $title, $description, $categoryId, $userId);
         $statement->execute();
 		
-		return true;
+		return $statement->affected_rows > 0;
     }
 	
     public function delete($id) {
 		//only admin!
-        $statement = self::$db->prepare(
-            "DELETE FROM categories WHERE id = ?");
-        $statement->bind_param("i", $id);
-        $statement->execute();
-        return $statement->affected_rows > 0;
+		
+        // $statement = self::$db->prepare(
+        //     "DELETE FROM categories WHERE id = ?");
+        // $statement->bind_param("i", $id);
+        // $statement->execute();
+        // return $statement->affected_rows > 0;
     }
 	
-	public function addAnswer($text){
-		//TODO
+	public function addAnswer($text, $questionId){
+		if (strlen($text) <= 10){
+			return false;
+		}
+		
+		$userStatement = $this->getUserStatementFromName($_SESSION['user']);
+		if (!isset($userStatement['id'])){
+			return false;
+		}
+		$userId = $userStatement['id'];
+		
+		$statement = self::$db->prepare(
+			"INSERT INTO answers (text, question_id, user_id) 
+			VALUES (?, ?, ?)");
+        $statement->bind_param("sii", $text, $questionId, $userId);
+        $statement->execute();
+		
+		return $statement->affected_rows > 0;;
 	}
 	
 	public function getAnswers($id) {
