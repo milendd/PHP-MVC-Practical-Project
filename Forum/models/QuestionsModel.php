@@ -3,7 +3,7 @@
 class QuestionsModel extends BaseModel {
     public function getAll() {
         $statement = self::$db->query(
-			"SELECT q.id, q.title, c.title as category, u.username
+			"SELECT q.id, q.title, c.title as categoryTitle, c.id as categoryId, u.username
 			FROM questions q 
 			JOIN categories c ON q.category_id = c.id
 			JOIN users u ON q.user_id = u.id

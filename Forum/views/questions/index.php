@@ -17,8 +17,8 @@
 				</a>
 			</td>
 			<td>
-				<a href="/categories/view/<?= $question['category']?>">
-					<?= htmlspecialchars($question['category'])?>
+				<a href="/categories/view/<?= $question['categoryId']?>">
+					<?= htmlspecialchars($question['categoryTitle'])?>
 				</a>
 			</td>
             <td>

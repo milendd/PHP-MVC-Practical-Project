@@ -9,7 +9,9 @@
         <tr>
             <td><?= $tag['id'] ?></td>
 			<td>
-				<?= htmlspecialchars($tag['name'])?>
+				<a href="/tags/view/<?= $tag['id']?>">
+					<?= htmlspecialchars($tag['name'])?>
+				</a>
 			</td>
         </tr>
     <?php endforeach ?>
