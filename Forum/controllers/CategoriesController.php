@@ -13,6 +13,8 @@ class CategoriesController extends BaseController {
     }
 	
 	public function create() {
+		$this->authorize('You are not allowed to add category! Login first!');
+	
 		if ($this->isPost()) {
             $title = $_POST['title'];
             if ($this->categoriesModel->create($title)) {
@@ -25,12 +27,26 @@ class CategoriesController extends BaseController {
         }
 	}
 	
-	public function view($categoryTitle) {
-		$this->title = $categoryTitle;
-		$this->questions = $this->categoriesModel->getQuestions($categoryTitle);
+	public function view($categoryId) {
+		$category = $this->categoriesModel->find($categoryId);
+		if (!$category){
+			$this->addErrorMessage("Invalid category!");
+			$this->redirect("categories");
+		}
+		
+		$this->title = $category['title'];
+		$this->questions = $this->categoriesModel->getQuestions($categoryId);
 	}
 	
 	public function edit($id) {
+		$this->authorize('You are not allowed to edit category! Login first!');
+	
+		$this->category = $this->categoriesModel->find($id);
+        if (!$this->category) {
+            $this->addErrorMessage("Invalid category.");
+            $this->redirect("categories");
+        }
+	
         if ($this->isPost()) {
             $title = $_POST['title'];
             if ($this->categoriesModel->edit($id, $title)) {
@@ -41,16 +57,11 @@ class CategoriesController extends BaseController {
                 $this->addErrorMessage("Cannot edit category.");
             }
         }
-
-        // Display edit category form
-        $this->category = $this->categoriesModel->find($id);
-        if (!$this->category) {
-            $this->addErrorMessage("Invalid category.");
-            $this->redirect("categories");
-        }
     }
 
     public function delete($id) {
+		$this->authorize('You are not allowed to delete category! Login first!');
+	
         if ($this->categoriesModel->delete($id)) {
             $this->addInfoMessage("category deleted.");
         } 

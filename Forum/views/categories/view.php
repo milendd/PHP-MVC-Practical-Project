@@ -1,4 +1,4 @@
-<h1>Category: <?= $this->title ?></h1>
+<h1>Category: <?= htmlspecialchars($this->title) ?></h1>
 
 <table>
 	<?php if ($this->questions):

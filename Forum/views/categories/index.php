@@ -8,8 +8,8 @@
     <?php foreach ($this->categories as $category) : ?>
         <tr>
             <td><?= $category['id'] ?></td>
-            <td>
-				<a href="/categories/view/<?=$category['title']?> ">
+			<td>
+				<a href="/categories/view/<?=$category['id']?> ">
 					<?= htmlspecialchars($category['title'])?>
 				</a>
 			</td>

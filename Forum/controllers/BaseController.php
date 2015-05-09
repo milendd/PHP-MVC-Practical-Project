@@ -77,6 +77,13 @@ abstract class BaseController {
 		
         array_push($_SESSION['messages'], array('text' => $msg, 'type' => $type));
     }
+	
+	function authorize($msg) {
+		if (!$this->isLoggedIn){
+			$this->addErrorMessage($msg);
+			$this->redirect('account', 'login');
+		}
+	}
 
     function addInfoMessage($msg) {
         $this->addMessage($msg, 'info');

@@ -44,15 +44,15 @@ class CategoriesModel extends BaseModel {
         return $statement->affected_rows > 0;
     }
 	
-	public function getQuestions($categoryTitle){
+	public function getQuestions($categoryId){
 		$statement = self::$db->prepare(
 			"SELECT q.id, q.title, u.username
 			FROM categories c
 			JOIN questions q ON c.id = q.category_id
 			JOIN users u ON u.id = q.user_id
-			WHERE c.title = ?");
-        $statement->bind_param("s", $categoryTitle);
-        $statement->execute();
+			WHERE c.id = ?");
+		$statement->bind_param("i", $categoryId);
+		$statement->execute();
 		$result = $statement->get_result();
 		
         return $result->fetch_all(MYSQLI_ASSOC);

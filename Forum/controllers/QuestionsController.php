@@ -29,10 +29,7 @@ class QuestionsController extends BaseController {
 	public function add() {
 		$this->categories = $this->categoriesModel->getAll();
 		
-		if (!$this->isLoggedIn){
-			$this->addErrorMessage("You cannot write questions if you are not logged in.");
-			$this->redirect("account", "login");
-		}
+		$this->authorize('You cannot write questions if you are not logged in.');
 		
 		if ($this->isPost()){
 			$title = $_POST['title'];
@@ -51,10 +48,7 @@ class QuestionsController extends BaseController {
 	}
 	
 	public function addAnswer($questionId){
-		if (!$this->isLoggedIn){
-			$this->addErrorMessage("You cannot write answers if you are not logged in.");
-			$this->redirect("account", "login");
-		}
+		$this->authorize('You cannot write answers if you are not logged in!');
 		
 		if ($this->isPost()){
 			$text = $_POST['text'];
@@ -68,10 +62,6 @@ class QuestionsController extends BaseController {
 			}
 			
 			$this->redirectToUrl('/questions/view/' . $questionId);
-		}
-		else {
-			$this->addErrorMessage("You are not allowed to add answers this way!");
-			$this->redirect('questions');
 		}
 	}
 	

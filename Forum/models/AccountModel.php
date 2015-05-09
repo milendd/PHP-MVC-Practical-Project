@@ -15,7 +15,7 @@ class AccountModel extends BaseModel {
 	}
 	
 	public function register($username, $password, $email){
-		if (!isset($username) || strlen($username) < 3){
+		if (!isset($username) || strlen($username) < 3 || strlen($email) < 5){
 			return false;
 		}
 	
