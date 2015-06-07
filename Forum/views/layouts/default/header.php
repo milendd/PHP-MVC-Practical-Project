@@ -12,7 +12,7 @@
         <a href="/"><img src="/content/images/logo.jpg"></a>
 		<?php if ($this->isLoggedIn) :?>
 			<div id="user-settings">
-				<p>Hello, <?php echo $_SESSION['user']; ?>!</p>
+				<p>Hello, <?php echo htmlspecialchars($_SESSION['user']); ?>!</p>
 				<form action="/account/logout">
 					<input type="submit" value="Logout"/>
 				</form>

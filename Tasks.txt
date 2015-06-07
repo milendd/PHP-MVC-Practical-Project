@@ -1,0 +1,23 @@
+Optional functionalities:
+- Admin panel: add /edit /delete forum posts, tags, answers, categories.
+- Functionality for searching by question, answer and tags.
+- Implement ranking according to user activity.
+
+// title do 50 simvola
+// description(do 300 simvola)
+// answer
+//fix dafault routing// like mario peshev
+//add datetime in db
+//Proverka za vischki web sequrity(sql injection, empty pass or username , etc...)
+//return redirect !!!!
+//remove
+// Show all unavailable things like /user/nakovsfasd or /categories/edit/-3
+// Implement edit on question or answer!
+// Fix tabs indentions
+// Extract getTagId to Tagsmodel
+
+//2:07:00
+//Could not delete category #20
+//Could not edit category.It should be non-empty or already exists
+
+add tagove v quesions index view
